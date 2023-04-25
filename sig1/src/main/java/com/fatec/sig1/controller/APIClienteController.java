@@ -29,13 +29,13 @@ import com.fatec.sig1.services.MantemClienteI;
 public class APIClienteController {
 	@Autowired
 	MantemClienteI mantemCliente;
-	Cliente cliente;
+	
 	Logger logger = LogManager.getLogger(this.getClass());
 
 	@CrossOrigin // desabilita o cors do spring security
 	@PostMapping
 	public ResponseEntity<Object> saveCliente(@RequestBody @Valid ClienteDTO clienteDTO, BindingResult result) {
-		cliente = new Cliente();
+		Cliente cliente = new Cliente();
 		if (result.hasErrors()) {
 			logger.info(">>>>>> apicontroller validacao da entrada dados invalidos" + result.getFieldError());
 			return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Dados inválidos.");

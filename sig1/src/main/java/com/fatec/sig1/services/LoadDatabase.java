@@ -4,14 +4,12 @@ import java.util.Arrays;
 
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 
 import com.fatec.sig1.model.Cliente;
 import com.fatec.sig1.model.ClienteRepository;
-import com.fatec.sig1.model.PedidoRepository;
 import com.fatec.sig1.model.Produto;
 import com.fatec.sig1.model.ProdutoRepository;
 
