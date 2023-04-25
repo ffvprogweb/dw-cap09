@@ -26,7 +26,7 @@ import com.fatec.sig1.services.MantemClienteI;
 /*
  * Trata as requisicoes HTTP enviadas pelo usuario do servico
  */
-public class APIMantemClienteController {
+public class APIClienteController {
 	@Autowired
 	MantemClienteI mantemCliente;
 	Cliente cliente;

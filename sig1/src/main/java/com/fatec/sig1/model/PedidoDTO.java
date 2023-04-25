@@ -36,4 +36,9 @@ public class PedidoDTO {
 		this.quantidade = quantidade;
 	}
 	// equals e toString omitidos
+	@Override
+	public String toString() {
+		return "PedidoDTO [cpf=" + cpf + ", produtoId=" + produtoId + ", quantidade=" + quantidade + "]";
+	}
+	
 }

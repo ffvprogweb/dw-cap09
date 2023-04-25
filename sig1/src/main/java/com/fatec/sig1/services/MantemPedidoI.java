@@ -55,7 +55,7 @@ public class MantemPedidoI implements MantemPedido {
 				logger.info(">>>>>> servico cadastrar pedido - dados validos ");
 				return save(umPedido.get());
 			} else {
-				logger.info(">>>>>> servico cadastrar pedido - dados invalidos ");
+				logger.info(">>>>>> servico cadastrar pedido - dados invalidos " );
 				return null;
 			}
 		} catch (Exception e) {

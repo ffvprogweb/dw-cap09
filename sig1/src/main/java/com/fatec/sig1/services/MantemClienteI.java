@@ -12,7 +12,7 @@ import org.springframework.web.client.HttpClientErrorException;
 import org.springframework.web.client.ResourceAccessException;
 import org.springframework.web.client.RestTemplate;
 import com.fatec.sig1.model.Cliente;
-import com.fatec.sig1.model.MantemClienteRepository;
+import com.fatec.sig1.model.ClienteRepository;
 import com.fatec.sig1.model.Endereco;
 
 /**
@@ -21,15 +21,14 @@ import com.fatec.sig1.model.Endereco;
  * cria uma camada de abstracao neste processo. Ao inves da classe dependente
  * instanciar suas dependencias diretamente, eles são solicitados a partir de um
  * objeto centralizado que atua como localizador de serviços.
- * 
+ * Marcamos beans com @Service para indicar que ele está mantendo a lógica de negócios. 
  * @author
- *
  */
 @Service
 public class MantemClienteI implements MantemCliente {
 	Logger logger = LogManager.getLogger(this.getClass());
 	@Autowired
-	MantemClienteRepository repository;
+	ClienteRepository repository;
 
 	public List<Cliente> consultaTodos() {
 		logger.info(">>>>>> servico consultaTodos chamado");
