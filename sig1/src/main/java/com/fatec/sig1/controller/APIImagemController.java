@@ -48,7 +48,7 @@ public class APIImagemController {
 	}
 
 	@PostMapping("/upload")
-	public ResponseEntity<?> handleFileUpload(@RequestParam("file") MultipartFile file) {
+	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
 		logger.info(">>>>>> manipula file upload chamada");
 		if (!file.isEmpty()) {
 			logger.info(">>>>>> manipula file upload arquivo nao esta vazio");
