@@ -8,6 +8,8 @@ import java.nio.file.StandardCopyOption;
 import java.util.List;
 import java.util.UUID;
 
+import org.apache.logging.log4j.LogManager;
+import org.apache.logging.log4j.Logger;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
@@ -17,7 +19,7 @@ import com.fatec.sig1.model.ImagemRepository;
 
 @Service
 public class MantemImagemI implements MantemImagem{
-
+	Logger logger = LogManager.getLogger(this.getClass());
     private ImagemRepository imagemRepository = null;
 
     private Environment environment = null;
@@ -44,6 +46,7 @@ public class MantemImagemI implements MantemImagem{
         imagem.setNome(nomeArquivo);
         imagem.setCaminho(caminhoArquivo.toString());
         Files.write(caminhoArquivo, arquivo.getBytes());
+        logger.info(">>>>>> servico mantem imagem executado com sucesso");
         return imagemRepository.save(imagem);
     }
 

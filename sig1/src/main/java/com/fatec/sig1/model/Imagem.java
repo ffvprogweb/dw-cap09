@@ -16,6 +16,8 @@ public class Imagem {
 
     private String caminho;
     
+    private byte[] arquivo;
+    
     public Imagem() {
     	
     }
@@ -42,6 +44,14 @@ public class Imagem {
 
 	public void setCaminho(String caminho) {
 		this.caminho = caminho;
+	}
+
+	public byte[] getArquivo() {
+		return arquivo;
+	}
+
+	public void setArquivo(byte[] arquivo) {
+		this.arquivo = arquivo;
 	}
 
    

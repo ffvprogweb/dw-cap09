@@ -2,7 +2,7 @@ package com.fatec.sig1.controller;
 
 import java.io.FileNotFoundException;
 import java.io.IOException;
-import java.nio.file.Files;
+import java.net.MalformedURLException;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.List;
@@ -11,9 +11,14 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.apache.tomcat.util.http.fileupload.FileUploadException;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.core.io.Resource;
+import org.springframework.core.io.UrlResource;
+import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -22,17 +27,18 @@ import org.springframework.web.multipart.MultipartFile;
 
 import com.fatec.sig1.model.Imagem;
 import com.fatec.sig1.model.ImagemRepository;
-import com.fatec.sig1.services.MantemImagemI;
+import com.fatec.sig1.services.MantemImagem;
+
 
 @RestController
-@RequestMapping("/imagens")
+@RequestMapping("/api/v1/imagens")
 public class APIImagemController {
 	Logger logger = LogManager.getLogger(this.getClass());
-	private final MantemImagemI servicoMantemImagem;
+	private final MantemImagem servicoMantemImagem;
 	@Autowired
 	ImagemRepository imagemRepository;
 
-	public APIImagemController(MantemImagemI mantemImagem) {
+	public APIImagemController(MantemImagem mantemImagem) {
 		this.servicoMantemImagem = mantemImagem;
 	}
 
@@ -46,8 +52,26 @@ public class APIImagemController {
 	public List<Imagem> listarImagens() {
 		return servicoMantemImagem.listar();
 	}
-
-	@PostMapping("/upload")
+	@GetMapping("/{nomeArquivo}")
+    public ResponseEntity<Resource> getImagem(@PathVariable String nomeArquivo) {
+        try {
+            Path caminhoArquivo = Paths.get("imagens/" + nomeArquivo);
+            Resource resource = new UrlResource(caminhoArquivo.toUri());
+            logger.info(">>>>>> getImagem caminho do arquivo => " + caminhoArquivo.toString());
+            if (resource.exists()) {
+                return ResponseEntity.ok()
+                        //.contentType(MediaType.IMAGE_JPEG)
+                        .contentType(MediaType.parseMediaType("application/octet-stream"))
+                        .header(HttpHeaders.CONTENT_DISPOSITION, "attachment; filename=\"" + resource.getFilename() + "\"")
+                        .body(resource);
+            } else {
+                return ResponseEntity.notFound().build();
+            }
+        } catch (MalformedURLException e) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
+        }
+    }
+	@PostMapping
 	public ResponseEntity<String> handleFileUpload(@RequestParam("file1") MultipartFile file) {
 		logger.info(">>>>>> manipula file upload chamado");
 		if (!file.isEmpty()) {
