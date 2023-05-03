@@ -16,7 +16,7 @@ import com.fatec.sig1.model.Imagem;
 import com.fatec.sig1.model.ImagemRepository;
 
 @Service
-public class MantemImagemI {
+public class MantemImagemI implements MantemImagem{
 
     private ImagemRepository imagemRepository = null;
 
@@ -28,13 +28,22 @@ public class MantemImagemI {
     }
 
     public Imagem salvar(MultipartFile arquivo) throws IOException {
-        String nomeArquivo = UUID.randomUUID().toString() + "_" + arquivo.getOriginalFilename();
-        String caminhoArquivo = environment.getProperty("imagem.upload-dir") + "/" + nomeArquivo;
-        Path caminhoCompleto = Paths.get(caminhoArquivo).toAbsolutePath().normalize();
-        Files.copy(arquivo.getInputStream(), caminhoCompleto, StandardCopyOption.REPLACE_EXISTING);
+    	// Obter informações sobre o arquivo
+        String nome = arquivo.getOriginalFilename();
+        String tipo = arquivo.getContentType();
+        long tamanho = arquivo.getSize();
+        byte[] conteudo = arquivo.getBytes(); //Obter o conteúdo do arquivo
+        //Processar o arquivo
+       // String nomeArquivo = UUID.randomUUID().toString() + "_" + arquivo.getOriginalFilename();
+        String nomeArquivo = arquivo.getOriginalFilename();
+        //String caminhoArquivo = environment.getProperty("imagem.upload-dir") + "/" + nomeArquivo;
+        //Path caminhoCompleto = Paths.get(caminhoArquivo).toAbsolutePath().normalize();
+        Path caminhoArquivo = Paths.get("imagens/" + nomeArquivo);
+        //Files.copy(arquivo.getInputStream(), caminhoCompleto, StandardCopyOption.REPLACE_EXISTING);
         Imagem imagem = new Imagem();
         imagem.setNome(nomeArquivo);
-        imagem.setCaminho(caminhoCompleto.toString());
+        imagem.setCaminho(caminhoArquivo.toString());
+        Files.write(caminhoArquivo, arquivo.getBytes());
         return imagemRepository.save(imagem);
     }
 

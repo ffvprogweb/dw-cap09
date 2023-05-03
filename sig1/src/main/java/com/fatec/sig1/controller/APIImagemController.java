@@ -28,12 +28,12 @@ import com.fatec.sig1.services.MantemImagemI;
 @RequestMapping("/imagens")
 public class APIImagemController {
 	Logger logger = LogManager.getLogger(this.getClass());
-	private final MantemImagemI mantemImagem;
+	private final MantemImagemI servicoMantemImagem;
 	@Autowired
 	ImagemRepository imagemRepository;
 
 	public APIImagemController(MantemImagemI mantemImagem) {
-		this.mantemImagem = mantemImagem;
+		this.servicoMantemImagem = mantemImagem;
 	}
 
 //    @PostMapping
@@ -44,45 +44,31 @@ public class APIImagemController {
 
 	@GetMapping
 	public List<Imagem> listarImagens() {
-		return mantemImagem.listar();
+		return servicoMantemImagem.listar();
 	}
 
 	@PostMapping("/upload")
-	public ResponseEntity<String> handleFileUpload(@RequestParam("file") MultipartFile file) {
-		logger.info(">>>>>> manipula file upload chamada");
+	public ResponseEntity<String> handleFileUpload(@RequestParam("file1") MultipartFile file) {
+		logger.info(">>>>>> manipula file upload chamado");
 		if (!file.isEmpty()) {
-			logger.info(">>>>>> manipula file upload arquivo nao esta vazio");
-			//String fileName = file.getOriginalFilename();
+			logger.info(">>>>>> manipula file upload file nao esta vazio");
 			try {
-				//byte[] bytes = file.getBytes();
-				// processar arquivo
-				//File uploadedFile = new File("c:/" + file.getOriginalFilename());
-				String nomeArquivo = file.getOriginalFilename();
-				
-				Path caminhoArquivo = Paths.get("imagens/" + nomeArquivo);
-				//File uploadedFile = new File("c:/" + file.getOriginalFilename());
-				//file.transferTo(uploadedFile);
-				Imagem imagem = new Imagem();
-		        imagem.setNome(nomeArquivo);
-		        imagem.setCaminho(caminhoArquivo.toString());
-	            Files.write(caminhoArquivo, file.getBytes());
-	            imagemRepository.save(imagem);
-
-	            return ResponseEntity.ok().body("Imagem enviada com sucesso");
+				servicoMantemImagem.salvar(file);
+				logger.info(">>>>>> manipula file upload enviado com sucesso");
+				return ResponseEntity.ok().body("Imagem enviada com sucesso");
 			} catch (FileNotFoundException e) {
 				logger.info(">>>>>> manipula file upload arquivo não encontrado");
-				 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo nao encontrado");
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo nao encontrado");
 			} catch (FileUploadException e) {
 				logger.info(">>>>>> manipula file upload erro no upload");
-				 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao enviar o arquivo");
-			}
-
-			catch (IOException e) {
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao enviar o arquivo");
+			} catch (IOException e) {
 				logger.info(">>>>>> manipula file upload erro de i/o => " + e.getMessage());
-				 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha erro de I/O");
+				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha erro de I/O");
 			}
 		} else {
-			 return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo vazio");
+			logger.info(">>>>>> arquivo vazio ");
+			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo vazio");
 		}
 	}
 
