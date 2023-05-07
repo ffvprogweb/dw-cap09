@@ -1,5 +1,6 @@
 package com.fatec.sig1.model;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -15,7 +16,7 @@ public class Imagem {
     private String nome;
 
     private String caminho;
-    
+    @Column(name = "arquivo", length = 7168)
     private byte[] arquivo;
     
     public Imagem() {

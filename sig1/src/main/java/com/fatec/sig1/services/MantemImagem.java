@@ -9,6 +9,6 @@ import com.fatec.sig1.model.Imagem;
 
 public interface MantemImagem {
 	public Imagem salvar(MultipartFile arquivo) throws IOException;
-
 	public List<Imagem> getAll();
+	public byte[] getImagem(String nomeArquivo) ;
 }

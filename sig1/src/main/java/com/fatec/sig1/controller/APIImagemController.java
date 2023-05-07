@@ -88,5 +88,11 @@ public class APIImagemController {
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo vazio");
 		}
 	}
+	@GetMapping("/db/{nomeArquivo}")
+	public ResponseEntity<byte[]> getImagemDB(@PathVariable String nomeArquivo) {
+		byte[] arquivo = servicoMantemImagem.getImagem(nomeArquivo);
+		
+		return ResponseEntity.status(HttpStatus.OK).body(arquivo);
+	}
 
 }
