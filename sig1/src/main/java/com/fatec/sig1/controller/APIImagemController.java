@@ -66,12 +66,12 @@ public class APIImagemController {
 	@CrossOrigin
 	@PostMapping
 	public ResponseEntity<String> handleFileUpload(MultipartFile file) {
-		logger.info(">>>>>> manipula file upload chamado");
+		logger.info(">>>>>> api manipula file upload chamado");
 		if (!file.isEmpty()) {
-			logger.info(">>>>>> manipula file upload file nao esta vazio");
+			logger.info(">>>>>> api manipula file upload file nao esta vazio");
 			try {
-				servicoMantemImagem.salvar(file);
 				logger.info(">>>>>> api manipula file upload chamou servico salvar");
+				servicoMantemImagem.salvar(file);
 				return ResponseEntity.ok().body("Imagem enviada com sucesso");
 			} catch (FileNotFoundException e) {
 				logger.info(">>>>>> api manipula file upload arquivo não encontrado");
