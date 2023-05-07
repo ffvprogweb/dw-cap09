@@ -35,31 +35,21 @@ import com.fatec.sig1.services.MantemImagem;
 @RequestMapping("/api/v1/imagens")
 public class APIImagemController {
 	Logger logger = LogManager.getLogger(this.getClass());
-	private final MantemImagem servicoMantemImagem;
 	@Autowired
-	ImagemRepository imagemRepository;
-
-	public APIImagemController(MantemImagem mantemImagem) {
-		this.servicoMantemImagem = mantemImagem;
-	}
-
-//    @PostMapping
-//    public ResponseEntity<Imagem> uploadImagem(@RequestParam("imagem") MultipartFile arquivo) throws IOException {
-//        Imagem imagem = mantemImagem.salvar(arquivo);
-//        return ResponseEntity.ok(imagem);
-//    }
-
+	private MantemImagem servicoMantemImagem;
+	
+	
 	@GetMapping
-	public List<Imagem> listarImagens() {
-		logger.info(">>>>>> controller api imagem get chamado " );
-		return servicoMantemImagem.listar();
+	public List<Imagem> getTodasImagens() {
+		logger.info(">>>>>> controller api listar imagens get chamado " );
+		return servicoMantemImagem.getAll();
 	}
 	@GetMapping("/{nomeArquivo}")
     public ResponseEntity<Resource> getImagem(@PathVariable String nomeArquivo) {
         try {
             Path caminhoArquivo = Paths.get("imagens/" + nomeArquivo);
             Resource resource = new UrlResource(caminhoArquivo.toUri());
-            logger.info(">>>>>> getImagem caminho do arquivo => " + caminhoArquivo.toString());
+            logger.info(">>>>>> controller getImagem caminho do arquivo => " + caminhoArquivo.toString());
             if (resource.exists()) {
                 return ResponseEntity.ok()
                         //.contentType(MediaType.IMAGE_JPEG)
@@ -81,20 +71,20 @@ public class APIImagemController {
 			logger.info(">>>>>> manipula file upload file nao esta vazio");
 			try {
 				servicoMantemImagem.salvar(file);
-				logger.info(">>>>>> manipula file upload enviado com sucesso");
+				logger.info(">>>>>> api manipula file upload chamou servico salvar");
 				return ResponseEntity.ok().body("Imagem enviada com sucesso");
 			} catch (FileNotFoundException e) {
-				logger.info(">>>>>> manipula file upload arquivo não encontrado");
+				logger.info(">>>>>> api manipula file upload arquivo não encontrado");
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo nao encontrado");
 			} catch (FileUploadException e) {
-				logger.info(">>>>>> manipula file upload erro no upload");
+				logger.info(">>>>>> api manipula file upload erro no upload");
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha ao enviar o arquivo");
 			} catch (IOException e) {
-				logger.info(">>>>>> manipula file upload erro de i/o => " + e.getMessage());
+				logger.info(">>>>>> api manipula file upload erro de i/o => " + e.getMessage());
 				return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Falha erro de I/O");
 			}
 		} else {
-			logger.info(">>>>>> arquivo vazio ");
+			logger.info(">>>>>> api manipula file arquivo vazio ");
 			return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("Arquivo vazio");
 		}
 	}
