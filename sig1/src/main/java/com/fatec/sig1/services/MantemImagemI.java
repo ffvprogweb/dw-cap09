@@ -46,7 +46,7 @@ public class MantemImagemI implements MantemImagem{
         imagem.setNome(nomeArquivo);
         imagem.setCaminho(caminhoArquivo.toString());
         Files.write(caminhoArquivo, arquivo.getBytes());
-        logger.info(">>>>>> servico mantem imagem executado com sucesso");
+        logger.info(">>>>>> servico mantem imagem salvar executado");
         return imagemRepository.save(imagem);
     }
 

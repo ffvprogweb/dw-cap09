@@ -4,6 +4,7 @@ import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -19,14 +20,14 @@ import com.fatec.sig1.services.MantemImagem;
 public class GUIImagemController {
 	@Autowired
 	MantemImagem servicoMantemImagem;
-
+	@CrossOrigin
 	@GetMapping
 	public ModelAndView exibirFormulario(MultipartFile file1) {
 		ModelAndView mv = new ModelAndView("uploadImagens");
 		mv.addObject("file1", new Imagem());
 		return mv;
 	}
-
+	@CrossOrigin
 	@PostMapping("/upload")
 	public ModelAndView uploadArquivo(@RequestParam("file1") MultipartFile arquivo) {
 		ModelAndView mv = new ModelAndView("uploadImagens");

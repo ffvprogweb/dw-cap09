@@ -17,6 +17,7 @@ import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -50,6 +51,7 @@ public class APIImagemController {
 
 	@GetMapping
 	public List<Imagem> listarImagens() {
+		logger.info(">>>>>> controller api imagem get chamado " );
 		return servicoMantemImagem.listar();
 	}
 	@GetMapping("/{nomeArquivo}")
@@ -71,8 +73,9 @@ public class APIImagemController {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).build();
         }
     }
+	@CrossOrigin
 	@PostMapping
-	public ResponseEntity<String> handleFileUpload(@RequestParam("file1") MultipartFile file) {
+	public ResponseEntity<String> handleFileUpload(MultipartFile file) {
 		logger.info(">>>>>> manipula file upload chamado");
 		if (!file.isEmpty()) {
 			logger.info(">>>>>> manipula file upload file nao esta vazio");
