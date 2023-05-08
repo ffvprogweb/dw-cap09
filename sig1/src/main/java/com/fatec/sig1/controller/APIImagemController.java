@@ -37,8 +37,7 @@ public class APIImagemController {
 	Logger logger = LogManager.getLogger(this.getClass());
 	@Autowired
 	private MantemImagem servicoMantemImagem;
-	
-	
+		
 	@GetMapping
 	public List<Imagem> getTodasImagens() {
 		logger.info(">>>>>> controller api listar imagens get chamado " );
@@ -91,7 +90,6 @@ public class APIImagemController {
 	@GetMapping("/db/{nomeArquivo}")
 	public ResponseEntity<byte[]> getImagemDB(@PathVariable String nomeArquivo) {
 		byte[] arquivo = servicoMantemImagem.getImagem(nomeArquivo);
-		
 		return ResponseEntity.status(HttpStatus.OK).body(arquivo);
 	}
 
