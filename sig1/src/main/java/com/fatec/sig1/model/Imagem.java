@@ -14,7 +14,7 @@ public class Imagem {
     private Long id;
     private String nome;
     private String caminho;
-    @Column(name = "arquivo", length = 7168)
+    @Column(name = "arquivo", length = 24576)
     private byte[] arquivo;
     public Imagem() {
     	

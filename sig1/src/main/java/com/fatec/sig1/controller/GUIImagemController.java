@@ -38,12 +38,16 @@ public class GUIImagemController {
 			try {
 				servicoMantemImagem.salvar(arquivo);
 			} catch (Exception e) {
-				logger.info(">>>>>> gui controller erro => " + e.getMessage());
+				logger.info(">>>>>> gui imagem controller erro => " + e.getMessage());
+				logger.info(">>>>>> gui imagem controller erro => " + e.toString());
 			}
 		}else {
 			mv.addObject("message", "Dados invalidos");
 		}
 		return mv;
 	}
-
+	@GetMapping("/consulta") // tamanho das imagens 600 x 352
+	public ModelAndView exibirFormularioConsulta() {
+		return new ModelAndView("consultarProduto");
+	}
 }

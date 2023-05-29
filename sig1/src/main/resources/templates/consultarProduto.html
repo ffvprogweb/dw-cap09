@@ -1,0 +1,179 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+<meta charset="utf-8">
+<meta http-equiv="x-ua-compatible" content="ie=edge">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Consultar Produto</title>
+<link rel="stylesheet" type="text/css" href="css/layout.css">
+<style rel="stylesheet">
+body { background: #f3f3f3; }
+.tudo { 
+	max-width: 1000px;
+	margin: 0 auto;
+	padding: 0 5px;
+}
+.container {
+	display: grid;
+	grid-template-columns: repeat( auto-fill, minmax(220px, 1fr) );
+	grid-auto-flow: dense;
+	grid-gap: 10px;
+}
+header {
+	background: #777;
+	color: #fff;
+	border-top-left-radius: 8px;
+	border-top-right-radius: 8px;
+	border-bottom: 1px solid #f70;
+}
+h1 {
+	text-align: center;
+	margin: 0 5px;
+	font-size: 16px;
+}
+ul {
+	list-style: none;
+	padding: 0;
+	margin: 0 10px;
+}
+li { margin: 10px 0; }
+li > span {
+	color: #f00;
+	font-size: 130%;
+}
+.card {
+	 display: flex;
+	 flex-direction: column;
+	 background: #fff;
+	 color: #333;
+	 border: 1px solid #f70;
+	 border-radius: 8px;
+	 }
+.maior {
+	grid-column: auto / span 2;
+}
+figure { margin: 0;}
+footer { margin-top: auto; }
+footer > a, footer > a:visited {
+	display: block;
+	text-align: center;
+	text-decoration: none;
+	background: #777;
+	color: #fff;
+	text-transform:uppercase; 
+	padding: 4px 10px;
+	border-top: 1px solid #f70;
+	border-bottom-left-radius: 8px;
+	border-bottom-right-radius: 8px;
+}
+footer > a:hover { background: #333; }
+.card img { width: 100%; height: auto; }
+</style>
+</head>
+<body>
+<div class="tudo">
+<section class="container">
+		
+<article class="card">
+	<header>
+    	<h1>Componentes furaderia eletrica 2345</h1>
+	</header>
+            
+	<figure>
+		<img th:src="@{imagens/card4.jpg}" alt=" ">
+	</figure>   
+	
+    <ul>
+        <li><strong>Descrição</strong><br>Componentes furadeira eletrica.</li>                
+        <li><strong>Preço:</strong> <span>R$1.019,99</span><br>(ou 10 x R101,99)</li>                
+	</ul>
+	
+    <footer>
+    
+		<a th:href="@{/sig/pedidos}">Comprar</a>
+	</footer>
+</article>
+
+<article class="card">
+	<header>
+    	<h1>Peças para torno mecanico tipo profissional 2345</h1>
+	</header>
+            
+	<figure>
+		<img th:src="@{/images/card2.jpg}" alt=" ">
+	</figure>   
+	
+	<ul>
+        <li><strong>Descrição</strong><br>Para fazer o serviço, a peça em questão é pressionada e fixada no torno. Assim, a peça fixada pode girar em alta velocidade para ser trabalhada utilizando a ferramenta de corte, que no caso dos tornos mecânicos é fixa no equipamento.</li>                
+    	<li><strong>Preço:</strong> <span>R$1.019,99</span><br>(ou 10 x R101,99)</li>                
+	</ul>
+	
+    <footer>
+		<a href="#">Comprar</a>
+	</footer>
+</article>
+
+<article class="card">
+	<header>
+    	<h1>Peças para torno mecanico tipo profissional 2345</h1>
+	</header>
+            
+	<figure>
+		<img th:src="@{/images/card3.jpg}" alt=" ">
+	</figure>   
+	
+	<ul>
+        <li><strong>Descrição</strong><br> Componentes furadeira elétrica.</li>                
+    	<li><strong>Preço:</strong> <span>R$1.019,99</span><br>(ou 10 x R101,99)</li>                
+	</ul>
+	
+    <footer>
+		<a href="#">Comprar</a>
+	</footer>
+</article>
+
+<article class="card maior">
+	<header>
+    	<h1>Peças para torno mecanico tipo profissional 2345</h1>
+	</header>
+            
+	<figure>
+		<img th:src="@{/images/card4.jpg}" alt=" ">
+	</figure>   
+	
+	<ul>
+        <li><strong>Descrição</strong><br> Componentes furadeira elétrica.</li>
+    	<li><strong>Preço:</strong> <span>R$1.019,99</span><br>(ou 10 x R101,99)</li>                
+	</ul>
+	
+    <footer>
+		<a href="#">Comprar</a>
+	</footer>
+</article>
+
+<article class="card">
+	<header>
+    	<h1>Peças para torno mecanico tipo profissional 2345</h1>
+	</header>
+            
+	<figure>
+		<img th:src="@{/images/card5.jpg}" alt=" ">
+	</figure>   
+	
+	<ul>
+        <li><strong>Descrição</strong><br> Novas pecas para manutenção de equipamentos pesados da marca X.</li>
+    	<li><strong>Preço:</strong> <span>R$1.019,99</span><br>(ou 10 x R101,99)</li>                
+	</ul>
+	
+    <footer>
+		<a href="#">Comprar</a>
+	</footer>
+</article>
+
+
+
+
+
+
+</body>
+</html>
