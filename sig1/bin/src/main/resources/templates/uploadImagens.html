@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>Upload de Imagem</title>
+</head>
+<body>
+    <h1>Fatec ZL</h1>
+    <form enctype="multipart/form-data" action="#" th:action="@{/sig/imagens/upload}" th:object="${file1}" method="post">
+    
+        <input type="file" name="file1" >
+        <br/><br/>
+        <button type="submit">Enviar</button>
+    </form>
+    <div>
+    <h4 th:text="${message}" class="text-danger"></h4>
+    </div>
+</body>
+</html>
